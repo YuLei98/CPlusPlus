@@ -1,0 +1,3 @@
+Lambda 函数
+语法规则：[capture](parameters) mutable->return-type{statement}
+[capture]捕捉列表。
