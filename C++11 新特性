@@ -1,3 +1,18 @@
 Lambda 函数
-语法规则：[capture](parameters) mutable->return-type{statement}
-[capture]捕捉列表。
+    语法规则：[capture](parameters) mutable->return-type{statement}
+    [capture]捕捉列表.[]是lambda引出符。编译器根据引出符判断代码是否是lambda函数。
+    (paremeters)参数列表.与普通函数的参数列表一致.
+    mutable修饰符.默认情况下，lambda函数总是一个const函数，mutable可以取消其常量性。在使用mutable时，参数列表不可省略（即使参数为空）。
+    ->return type返回类型。用追踪返回类型形式声明函数的返回类型。在不需要返回值的时候可省略。在返回类型明确的情况下，也可省略该部分，让编译器对返回类型进行推导。
+    {statement}函数体。内容与普通函数一样，不过除了可以使用参数之外，还可以使用所有捕获的变量。
+    最简的lambda函数：[]{};  其他部分都是可以省略的。
+    
+    捕捉列表:
+      [va]值传递方式捕捉变量var
+      [=]值传递方式捕捉所有父作用域的变量（包括this）
+      [&var]引用传递捕捉变量var
+      [&]引用传递方式捕捉所有父作用域的变量（包括this）
+      [this]值传递方式捕捉当前的this指针
+      捕捉列表可以组合值传递和引用传递如[=,&a,&b][&,a,this]，但是不允许变量重复传递,如[=,a][&,&this]编译会报错。
+      块作用域意外的lambda函数捕捉列表必须为空。
+      块作用域中的lambda函数仅能捕捉父作用域中的自动变量，捕捉任何非此作用域或者是非自动变量（如静态变量等）都会导致编译器报错。
